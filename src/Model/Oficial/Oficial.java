@@ -6,14 +6,23 @@ package Model.Oficial;
 
 import Model.Persona;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Period;
 
 public class Oficial extends Persona {
 
+    private int edad;
     private double salario;
 
-    public Oficial(double salario,String cedula, String nombre, Date fechaNacimiento, String telefono, String correo) {
+    public Oficial(double salario, String cedula, String nombre, Date fechaNacimiento, String telefono, String correo) {
         super(cedula, nombre, fechaNacimiento, telefono, correo);
         this.salario = salario;
+        calcularEdad(fechaNacimiento.toLocalDate());
+
+    }
+
+    public int getEdad() {
+        return edad;
     }
 
     public double deducciones() {
@@ -40,7 +49,17 @@ public class Oficial extends Persona {
         return salario;
     }
 
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
     public void setSalario(double salario) {
         this.salario = salario;
-    }    
+    }
+
+    private void calcularEdad(LocalDate fechaNacimiento) {
+        LocalDate fechaActual = LocalDate.now();
+        Period periodo = Period.between(fechaNacimiento, fechaActual);
+        this.edad = periodo.getYears();
+    }
 }
