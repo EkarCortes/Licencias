@@ -1,6 +1,6 @@
 package Controller.Customer;
 
-import Controller.Controller;
+import Controller.ControllerCRRU;
 import Model.Customer.Customer;
 import Model.Customer.CustomerDaoBD;
 import PersonaDTO.DtoCustomer;
@@ -13,13 +13,14 @@ import java.util.List;
  * @author abiga
  */
 
-public class CustomerController implements Controller<Customer> {
+public class CustomerController implements ControllerCRRU<Customer> {
 
    private FrmClientes viewC;
-    
+    private CustomerDaoBD dao;  // Cambié el tipo de 'dao'
 
     public CustomerController(FrmClientes viewC) {
         this.viewC = viewC;
+        this.dao = CustomerDaoBD.getInstance();  // Usar el método estático para obtener la instancia
     }
     
     @Override
@@ -96,18 +97,13 @@ public boolean create(Customer customer) {
 
         if (exito) {
             viewC.display(obj);
-            viewC.displayMessage("Cita modificada correctamente");
+            viewC.displayMessage("Cliente modificado correctamente");
             readAll();
         } else {
         }
        return false;
     }
 
-    @Override
-    public boolean delete(Customer obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
     
     
 }

@@ -20,25 +20,6 @@ public class CitaDTO {
         this.Customer = Customer;
     }
 
-//    public CitaDTO(Date fecha, String hora, String Customer) {
-//        this.id = 0; 
-//        this.fecha = fecha;
-//        this.hora = hora;
-//        this.Customer = Customer;
-//    }
-
-//    public CitaDTO(int id, Date fecha, String hora, String Customer, boolean activa) { 
-//        this.id = id;
-//        this.fecha = fecha;
-//        this.hora = hora;
-//        this.Customer = Customer;
-//        this.activa = activa;
-//    }
-
-    
-    
-
-  
     public int getId() {
         return id;
     }

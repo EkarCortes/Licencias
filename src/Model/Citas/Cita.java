@@ -38,7 +38,23 @@ public class Cita {
         this.Customer = Customer;
         this.activa = activa;
     }
-    
+
+    public Cita(int id, String Customer) {
+        this.id = id;
+        this.Customer = Customer;
+    }
+
+    public Cita( Date fecha, String hora) {
+        this.fecha = fecha;
+        this.hora = hora;
+    }
+
+    public Cita(int id, String fechaCita, String hora,String Customer) {
+    this.id = id;
+    this.fecha = Date.valueOf(fechaCita);
+    this.hora = hora;
+    this.Customer = Customer;
+}
 
     public boolean isActiva() {
         return activa;

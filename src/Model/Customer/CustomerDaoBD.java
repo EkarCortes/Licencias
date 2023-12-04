@@ -8,6 +8,7 @@ import PersonaDTO.DtoCustomer;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -19,6 +20,10 @@ public class CustomerDaoBD implements DaoCUS<DtoCustomer> {
     private static CustomerDaoBD customerInstance;
     private DaoBD bd;
     
+    
+      public CustomerDaoBD() {
+        this.bd = new DaoBD();
+    }
     public static CustomerDaoBD getInstance(){
     if (customerInstance==null) {
        customerInstance=new CustomerDaoBD();
@@ -104,6 +109,28 @@ public class CustomerDaoBD implements DaoCUS<DtoCustomer> {
 }
 
 
+  
+   public List<Customer> obtenerClientes() {
+        List<Customer> clientes = new ArrayList<>();
+        DaoBD dao = new DaoBD();
+
+        try {
+            dao.createStatement("SELECT Cedula, NombreCliente FROM clientes");
+            dao.execute(true);
+
+            while (dao.getData().next()) {
+                String cedula = dao.getData().getString("Cedula");
+                String nombreCliente = dao.getData().getString("NombreCliente");
+
+                Customer cliente = new Customer(cedula, nombreCliente);
+                clientes.add(cliente);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();  
+        }
+
+        return clientes;
+    }
   
 
 }

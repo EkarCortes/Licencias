@@ -2,9 +2,11 @@ package Model.Citas;
 
 import Dao.DaoCRR;
 import DaoBD.DaoBD;
+import Model.ClienteCita;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CitaDaoBD implements DaoCRR<CitaDTO> {
 
@@ -143,17 +145,66 @@ public boolean citasEnFechaYHora(Date fecha, String hora) {
     return false;
 }
 
-     public boolean desactivarCita(int idCita) {
-       
-        return false;
-       
-    }
       public boolean isFechaCitaValida(Date fechaCita) {
-        // Obtener la fecha actual
         Date fechaActual = new Date(System.currentTimeMillis());
-        
-        // Verificar si la fecha de la cita es mayor a la fecha actual
         return fechaCita.after(fechaActual);
     }
+      
+      public List<Cita> obtenerCitas() {
+        List<Cita> citas = new ArrayList<>();
+        DaoBD dao = new DaoBD();
+        try {
+            dao.createStatement("SELECT IdCita, FechaCita, Hora, IdClienteFK FROM citas");
+            dao.execute(true);
+
+            while (dao.getData().next()) {
+                int idCita = dao.getData().getInt("IdCita");
+                String fechaCita = dao.getData().getString("FechaCita");
+                String hora = dao.getData().getString("Hora");
+                String cliente = dao.getData().getString("IdClienteFK");
+
+                Cita cita = new Cita(idCita, fechaCita, hora,cliente);
+                citas.add(cita);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();  
+        }
+
+        return citas;
+    }
+
+      public List<ClienteCita> obtenerCitasConClientes() {
+    List<ClienteCita> citasConClientes = new ArrayList<>();
+    DaoBD dao = new DaoBD();
+
+    try {
+        dao.createStatement("SELECT c.IdCita, c.FechaCita, c.Hora, c.IdClienteFK, cl.Cedula, cl.NombreCliente, p.IdPrueba, p.Nota, p.Observaciones, p.Estado FROM citas c INNER JOIN clientes cl ON c.IdClienteFK = cl.Cedula LEFT JOIN pruebas p ON c.IdCita = p.IdCitaFK");
+        dao.execute(true);
+
+        while (dao.getData().next()) {
+            int idPrueba = dao.getData().getInt("IdPrueba");
+            String nota = dao.getData().getString("Nota");
+            String observaciones = dao.getData().getString("Observaciones");
+            int idCita = dao.getData().getInt("IdCita");
+            String fechaCita = dao.getData().getString("FechaCita");
+            String hora = dao.getData().getString("Hora");
+            String idClienteFK = dao.getData().getString("IdClienteFK");
+            String cedulaCliente = dao.getData().getString("Cedula");
+            String nombreCliente = dao.getData().getString("NombreCliente");
+            String estado = dao.getData().getString("Estado");
+            
+
+            ClienteCita citaClienteInfo = new ClienteCita(idCita, fechaCita, hora, idClienteFK, cedulaCliente, nombreCliente, idPrueba, nota, observaciones, estado);
+            citasConClientes.add(citaClienteInfo);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();  
+    }
+
+    return citasConClientes;
+}
+
+      
+
       
 }

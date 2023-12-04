@@ -132,7 +132,7 @@ public class FrmClientes extends javax.swing.JInternalFrame implements View<Cust
         });
         jScrollPane1.setViewportView(tabla);
 
-        btnactualizar.setText("jButton1");
+        btnactualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Icons/update.png"))); // NOI18N
         btnactualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnactualizarActionPerformed(evt);
@@ -275,16 +275,23 @@ public class FrmClientes extends javax.swing.JInternalFrame implements View<Cust
             JOptionPane.showMessageDialog(this, "Todos los campos deben estar llenos.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+
         Customer nuevoCliente = new Customer(identificacion, nombreCliente, new java.sql.Date(fechaNacimiento.getTime()), telefono, correo);
-        
         boolean success = controllercustomer.create(nuevoCliente);
         clear();
         
         if (success) {
+            // Éxito
         } else {
+            // Fallo
         }
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Error al agregar el cliente. Por favor, inténtalo de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+        // Manejo de errores
+        String errorMessage = "Error al agregar el cliente. Detalles: " + e.getMessage();
+        JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+
+        // Imprimir la traza de la pila para obtener más detalles
+        e.printStackTrace();
     }
     }//GEN-LAST:event_btnAgregarClienteActionPerformed
 

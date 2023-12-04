@@ -36,6 +36,8 @@ public class FrmLicencias extends javax.swing.JFrame {
         btnAgendarClientes = new javax.swing.JMenuItem();
         Oficiales = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        Pruebas = new javax.swing.JMenu();
+        btnlista = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,6 +94,18 @@ public class FrmLicencias extends javax.swing.JFrame {
 
         jMenuBar1.add(Oficiales);
 
+        Pruebas.setText("Pruebas");
+
+        btnlista.setText("Lista Pruebas");
+        btnlista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnlistaActionPerformed(evt);
+            }
+        });
+        Pruebas.add(btnlista);
+
+        jMenuBar1.add(Pruebas);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -119,6 +133,10 @@ public class FrmLicencias extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
      FrmOficial();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void btnlistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlistaActionPerformed
+        FrmPruebas();
+    }//GEN-LAST:event_btnlistaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,9 +176,11 @@ public class FrmLicencias extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Oficiales;
+    private javax.swing.JMenu Pruebas;
     private javax.swing.JMenuItem btnAgendar;
     private javax.swing.JMenuItem btnAgendarClientes;
     private javax.swing.JMenu btnCitas;
+    private javax.swing.JMenuItem btnlista;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -184,6 +204,11 @@ private void FrmClientes(){
  }
 private void FrmOficial(){
     FrmOficial frm = new FrmOficial();
+    this.jpane.add(frm);
+    frm.setVisible(true);
+}
+private void FrmPruebas(){
+    FrmPruebas frm = new FrmPruebas();
     this.jpane.add(frm);
     frm.setVisible(true);
 }

@@ -19,6 +19,12 @@ public abstract class Persona {
         this.correo = correo;
     }
 
+    public Persona(String cedula, String nombre) {
+        this.cedula = cedula;
+        this.nombre = nombre;
+    }
+
+    
     public String getNombre() {
         return nombre;
     }

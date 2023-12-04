@@ -5,7 +5,6 @@
 package Controller.Citas;
 
 
-import Controller.Controller;
 import Controller.ControllerCRR;
 import Controller.Customer.CustomerController;
 import Model.Citas.Cita;
@@ -25,11 +24,13 @@ public class CitaController implements ControllerCRR<Cita> {
     private FrmCitas view;
     private CustomerController customercontroller;
     private static CitaController instance;
+    private CustomerDaoBD dao;  
 
     public CitaController(FrmCitas view) {
         this.view = view;
+        this.dao = CustomerDaoBD.getInstance();  
     }
-   
+    
    
 
     
